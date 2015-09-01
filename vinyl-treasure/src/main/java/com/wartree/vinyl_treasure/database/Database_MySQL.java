@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.StringTokenizer;
+
+import com.wartree.vinyl_treasure.scripts.Script_Constants;
 
 
 public class Database_MySQL {
@@ -32,13 +35,13 @@ public class Database_MySQL {
             System.out.println("Driver loaded!");
         }
         catch (ClassNotFoundException e) {
-            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+            System.out.println("Yikes, the driver '" + classDriver + "' does not exist in the classpath.");
         }
     }
 
     public boolean schemaExists(String databaseUrl, String schemaName, String username, String password) {
 
-        boolean schemaExists = false;
+        boolean schemaExists;
 
         try {
             //  Attempting to connect to table
@@ -83,32 +86,6 @@ public class Database_MySQL {
         return isConnected;
     }
 
-
-    public boolean disconnectFromDb() {
-
-        try{
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-
-            System.out.println("Database disconnected!");
-        }
-        catch (SQLException e) {
-            throw new IllegalStateException("Failed to disconnect from the database!", e);
-        }
-
-        isConnected = false;
-
-        return isConnected;
-    }
 
 
 
@@ -162,6 +139,68 @@ public class Database_MySQL {
     }
 
 
+
+    public boolean createDatabase() {
+        boolean didExecute = false;
+
+        if (! isConnected) {
+            System.out.println("Cannot create database, not connected to a database server.");
+
+            return didExecute;
+        }
+
+        try {
+
+            statement = connect.createStatement();
+
+
+            //  Since the sql string is a collection of executions (creating database and tables),
+            //  Need to execute it as a batch by splitting based on the colon and adding each execution
+            //  individually.
+            StringTokenizer sqlTokenList = new StringTokenizer(Script_Constants.CREATE_DATABASE_VTI, ";");
+            String sqlStatement;
+
+            while (sqlTokenList.hasMoreTokens()) {
+                sqlStatement = sqlTokenList.nextToken();
+                try {
+                    statement.addBatch(sqlStatement);
+                } catch (SQLException e) {
+                    System.out.println("Bad batch addition");
+                    e.printStackTrace();
+                }
+            }
+            try {
+                statement.executeBatch();
+
+                didExecute = true;
+            }
+            catch (SQLException e) {
+
+                didExecute = false;
+                System.out.println ("Bad execution of batch.");
+                e.printStackTrace();
+
+            }
+
+
+            didExecute = true;
+        }
+        catch (SQLException e) {
+            didExecute = false;
+
+            System.out.println("Failed to create connection staetment (createStatment).");
+            e.printStackTrace();
+
+        }
+
+
+        return didExecute;
+    }
+
+
+
+
+
     /*
      *
      */
@@ -187,6 +226,36 @@ public class Database_MySQL {
 
 
         }
+    }
+
+
+
+
+    public boolean disconnectFromDb() {
+
+        try{
+            if (resultSet != null) {
+                resultSet.close();
+            }
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (connect != null) {
+                connect.close();
+            }
+
+            System.out.println("Database disconnected!");
+            isConnected = true;
+        }
+        catch (SQLException e) {
+            throw new IllegalStateException("Failed to disconnect from the database!", e);
+        }
+
+        isConnected = false;
+
+        return isConnected;
     }
 
 }

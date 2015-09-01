@@ -16,34 +16,44 @@ public class Vinyl_Main {
 
 
 
-        String mainSchema = "v_t_i1";
+        String mainSchema = "v_t_i";
         String mainTable = "v_sng";
 
         String databaseUrl = "jdbc:mysql://localhost:3306/";
         String username = "root";
         String password = "admin123";
-        String column_list[] = new String[] {"v_sng_c_head", "v_sng_c_dur", "v_sng_c_comp-l", "v_sng_c_comp-f"};
-        String input_list[] = new String[] {"Test Header", "13:26", "Fours", "Hubert"};
+//        String column_list[] = new String[] {"v_sng_c_head", "v_sng_c_dur", "v_sng_c_comp-l", "v_sng_c_comp-f"};
+//        String input_list[] = new String[] {"Test Header", "13:26", "Fours", "Hubert"};
 
 
 
 
         Database_MySQL newConn =  new Database_MySQL();
+        newConn.connectToDb(databaseUrl, username, password);
 
         if (newConn.schemaExists(databaseUrl, mainSchema, username, password)) {
             System.out.println("Yea, the schema '" + mainSchema + "' exists!");
         }
         else {
-            System.out.println("Aww, the schema '" + mainSchema + "' does not exist");
+            System.out.println("Aww, the schema '" + mainSchema + "' does not exist, creating . . .");
+            newConn.createDatabase();
+
+            if (newConn.schemaExists(databaseUrl, mainSchema, username, password)) {
+                System.out.println("Yea, the schema '" + mainSchema + "' now exists!");
+            }
+            else {
+                System.out.println("Aww, the schema '" + mainSchema + "' failed to be created.");
+            }
+
         }
 
-//        newConn.connectToDb(url, username, password);
+////        newConn.connectToDb(url, username, password);
+//
+//        newConn.disconnectFromDb();
 
-        newConn.disconnectFromDb();
 
 
-
-        System.out.println( "\nGood bye!\n");
+        System.out.println("\nGood bye!\n");
 
     }
 
