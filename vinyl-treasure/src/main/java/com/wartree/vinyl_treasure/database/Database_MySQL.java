@@ -153,6 +153,8 @@ public class Database_MySQL {
 
             statement = connect.createStatement();
 
+            didExecute = true;
+
 
             //  Since the sql string is a collection of executions (creating database and tables),
             //  Need to execute it as a batch by splitting based on the colon and adding each execution
@@ -164,15 +166,14 @@ public class Database_MySQL {
                 sqlStatement = sqlTokenList.nextToken();
                 try {
                     statement.addBatch(sqlStatement);
-                } catch (SQLException e) {
+                }
+                catch (SQLException e) {
                     System.out.println("Bad batch addition");
                     e.printStackTrace();
                 }
             }
             try {
                 statement.executeBatch();
-
-                didExecute = true;
             }
             catch (SQLException e) {
 
@@ -182,8 +183,6 @@ public class Database_MySQL {
 
             }
 
-
-            didExecute = true;
         }
         catch (SQLException e) {
             didExecute = false;
@@ -250,10 +249,12 @@ public class Database_MySQL {
             isConnected = true;
         }
         catch (SQLException e) {
+
+            isConnected = false;
             throw new IllegalStateException("Failed to disconnect from the database!", e);
+
         }
 
-        isConnected = false;
 
         return isConnected;
     }
