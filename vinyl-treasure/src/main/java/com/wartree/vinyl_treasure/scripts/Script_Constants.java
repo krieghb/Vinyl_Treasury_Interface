@@ -18,7 +18,7 @@ public final class Script_Constants {
             "  PRIMARY KEY (`albums_id`)\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n" +
 
-            "CREATE TABLE `v_t_i`.`t_vin_algroup_ref` (\n" +
+            "CREATE TABLE `v_t_i`.`t_vin_albgroup_ref` (\n" +
             "  `albgrp_ref_albumid` int(11) NOT NULL,\n" +
             "  `albgrp_ref_groupid` int(11) NOT NULL,\n" +
             "  PRIMARY KEY (`albgrp_ref_albumid`,`albgrp_ref_groupid`)\n" +
@@ -52,17 +52,17 @@ public final class Script_Constants {
             "  PRIMARY KEY (`set_id`)\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n" +
 
-            "CREATE TABLE `v_t_i`.`t_vin_setal_ref` (\n" +
-            "  `setal_ref_setid` int(11) NOT NULL,\n" +
-            "  `setal_ref_albumid` int(11) NOT NULL,\n" +
-            "  `setal_ref_albumnum` int(11) DEFAULT NULL,\n" +
-            "  PRIMARY KEY (`setal_ref_setid`)\n" +
+            "CREATE TABLE `v_t_i`.`t_vin_setalb_ref` (\n" +
+            "  `setalb_ref_setid` int(11) NOT NULL,\n" +
+            "  `setalb_ref_albumid` int(11) NOT NULL,\n" +
+            "  `setalb_ref_albumnum` int(11) DEFAULT NULL,\n" +
+            "  PRIMARY KEY (`setalb_ref_setid`)\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n" +
 
-            "CREATE TABLE `v_t_i`.`sngcomp_ref` (\n" +
-            "  `sngcomp_ref_sngid` int(11) NOT NULL,\n" +
-            "  `sngcomp_ref_compid` int(11) NOT NULL,\n" +
-            "  PRIMARY KEY (`sngcomp_ref_sngid`,`sngcomp_ref_compid`)\n" +
+            "CREATE TABLE `v_t_i`.`sngcom_ref` (\n" +
+            "  `sngcom_ref_sngid` int(11) NOT NULL,\n" +
+            "  `sngcom_ref_compid` int(11) NOT NULL,\n" +
+            "  PRIMARY KEY (`sngcom_ref_sngid`,`sngcom_ref_compid`)\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n" +
 
             "CREATE TABLE `v_t_i`.`t_vin_song` (\n" +

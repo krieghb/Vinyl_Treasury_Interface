@@ -47,9 +47,8 @@ public class Vinyl_Main {
 
         }
 
-////        newConn.connectToDb(url, username, password);
-//
-//        newConn.disconnectFromDb();
+
+        newConn.disconnectFromDb();
 
 
 
