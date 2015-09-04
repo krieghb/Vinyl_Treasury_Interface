@@ -125,7 +125,44 @@ public class Database_MySQL {
 
 
     }
+    
+    public void readFromDb(String mainSchemaTable, String[] columnNames) {
+    	//  String to build the execute statement.
+    	StringBuilder columnList = new StringBuilder();
+    	
+    	//  Should be at least one value in list to add to the SELECT statement
+    	columnList.append("SELECT ").append(columnNames[0]);
+    	
+    	//  Going through each column name to add to the select statement.
+    	for (int i = 1; i < columnNames.length; i++) {
+    		columnList.append(", columnNames[i]");
+    		
+    	}
+    	
+    	columnList.append(" FROM ").append(mainSchemaTable);
+    	
+    	
+    	try {
+    		statement = connect.createStatement();
+    		
+    		resultSet = statement.executeQuery(columnList.toString());
+    		
+    		writeResultSet(resultSet);    		
+    		
+    	}
+    	catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
 
+    /**
+     * Method to insert into a database using two lists (column name and data).
+     * 
+     * @param mainSchemaTable
+     * @param columnList
+     * @param inputList
+     */
     public void insertToDb(String mainSchemaTable, String[] columnList, String[] inputList) {
 
         int columnSize = columnList.length;
@@ -133,6 +170,7 @@ public class Database_MySQL {
         StringBuilder defaultQs = new StringBuilder("?");
 
         // PreparedStatements can use variables and are more efficient
+        //  This adds the correct number of "?"s for the prepared insert statement
         for (int i = 0; i < columnSize - 1; i++)
         {
             defaultQs.append(", ?");
@@ -162,7 +200,7 @@ public class Database_MySQL {
         boolean didExecute = false;
 
         if (! isConnected) {
-            System.out.println("Cannot create database, not connected to a database server.");
+            System.err.println("Cannot create database, not connected to a database server.");
 
             return didExecute;
         }
