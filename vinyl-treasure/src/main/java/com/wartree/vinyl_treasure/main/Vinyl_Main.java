@@ -1,6 +1,7 @@
 package com.wartree.vinyl_treasure.main;
 
 import com.wartree.vinyl_treasure.database.Database_MySQL;
+import com.wartree.vinyl_treasure.scripts.Script_Constants;
 
 /**
  * Created by krido02 on 8/31/2015.
@@ -36,7 +37,7 @@ public class Vinyl_Main {
         }
         else {
             System.out.println("Aww, the schema '" + mainSchema + "' does not exist, creating . . .");
-            newConn.createDatabase();
+            newConn.createDatabase(Script_Constants.CREATE_DATABASE_VTI);
 
             if (newConn.schemaExists(databaseUrl, mainSchema, username, password)) {
                 System.out.println("Yea, the schema '" + mainSchema + "' now exists!");

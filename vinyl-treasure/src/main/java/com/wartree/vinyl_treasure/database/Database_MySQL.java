@@ -140,7 +140,7 @@ public class Database_MySQL {
 
 
 
-    public boolean createDatabase() {
+    public boolean createDatabase(String databaseScript) {
         boolean didExecute = false;
 
         if (! isConnected) {
@@ -159,7 +159,7 @@ public class Database_MySQL {
             //  Since the sql string is a collection of executions (creating database and tables),
             //  Need to execute it as a batch by splitting based on the colon and adding each execution
             //  individually.
-            StringTokenizer sqlTokenList = new StringTokenizer(Script_Constants.CREATE_DATABASE_VTI, ";");
+            StringTokenizer sqlTokenList = new StringTokenizer(databaseScript, ";");
             String sqlStatement;
 
             while (sqlTokenList.hasMoreTokens()) {

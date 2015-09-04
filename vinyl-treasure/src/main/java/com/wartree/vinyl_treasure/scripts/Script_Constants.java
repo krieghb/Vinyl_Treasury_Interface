@@ -62,6 +62,7 @@ public final class Script_Constants {
             "CREATE TABLE `v_t_i`.`sngcom_ref` (\n" +
             "  `sngcom_ref_sngid` int(11) NOT NULL,\n" +
             "  `sngcom_ref_compid` int(11) NOT NULL,\n" +
+
             "  PRIMARY KEY (`sngcom_ref_sngid`,`sngcom_ref_compid`)\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n" +
 
