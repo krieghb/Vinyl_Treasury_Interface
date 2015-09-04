@@ -1,7 +1,7 @@
-package com.wartree.vinyl_treasure.main;
+package com.krieghb.vinyl_treasure.main;
 
-import com.wartree.vinyl_treasure.database.Database_MySQL;
-import com.wartree.vinyl_treasure.scripts.Script_Constants;
+import com.krieghb.vinyl_treasure.database.Database_MySQL;
+import com.krieghb.vinyl_treasure.scripts.Script_Constants;
 
 /**
  * Created by krido02 on 8/31/2015.

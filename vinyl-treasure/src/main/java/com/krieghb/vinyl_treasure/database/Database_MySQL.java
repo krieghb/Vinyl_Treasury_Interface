@@ -1,4 +1,4 @@
-package com.wartree.vinyl_treasure.database;
+package com.krieghb.vinyl_treasure.database;
 
 
 import java.sql.Connection;
@@ -9,8 +9,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.StringTokenizer;
 
-import com.wartree.vinyl_treasure.scripts.Script_Constants;
+import com.krieghb.vinyl_treasure.scripts.Script_Constants;
 
+/**
+ * 
+ * @author Krieghb
+ *
+ */
 
 public class Database_MySQL {
     private Connection connect = null;
@@ -39,6 +44,16 @@ public class Database_MySQL {
         }
     }
 
+    
+    /**
+     * 
+     * @param databaseUrl	URL to the database server
+     * @param schemaName	Schema name to check existence of
+     * @param username		Username for logging in
+     * @param password		Password for longging in
+     * @return				Whether the database exists or not
+     * 
+     */
     public boolean schemaExists(String databaseUrl, String schemaName, String username, String password) {
 
         boolean schemaExists;
@@ -62,9 +77,12 @@ public class Database_MySQL {
     }
 
 
-    /*
-     *
-     *
+    /**
+     * 
+     * @param url
+     * @param username
+     * @param password
+     * @return
      */
     public boolean connectToDb (String url, String username, String password) {
 
